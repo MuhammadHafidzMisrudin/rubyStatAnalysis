@@ -12,10 +12,10 @@ def query_user_date_range
 	start_date = nil
 	end_date = nil
 	
-	puts "\n First, Start Date"
+	puts "\nFirst, Start Date"
 	start_date = query_user_for_date
 	
-	puts "\n Next, End Date"
+	puts "\nNext, End Date"
 	end_date = query_user_for_date
 	
 	# return two values of array
@@ -32,7 +32,7 @@ def query_user_for_date
 	until date.is_a? Date
 		
 		prompt = "Please insert a date as YYYY-MM-DD:"
-		response = Readline.readline(prompt, true # get an input
+		response = Readline.readline(prompt, true) # get an input
 		
 		# Defensive test prompt for other options than a date
 		exit if ['quit', 'exit', 'q', 'x'].include?(response)
@@ -40,8 +40,8 @@ def query_user_for_date
 		# Defensive test block to check a format for date object
 		begin
 			date = Date.parse(response)
-		rescue ArguementError
-			puts "\n Invalid date format"
+		rescue ArgumentError
+			puts "\nInvalid date format"
 		end
 		
 	end
