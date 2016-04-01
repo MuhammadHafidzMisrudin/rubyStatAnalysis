@@ -23,4 +23,20 @@
 
 #!/usr/bin/env ruby
 
+require_relative('functions')
+
+puts "\n*** LAKE PEND OREILLE READINGS ***"
+
+# Intialise variables for dates, Start Date and End Date
+# Call a function called Query Date Range for user prompt
+
+start_date, end_date = query_user_date_range
+
+# Output date formats for Start Date and End Date
+
+puts start_date.strftime('%B %d, %Y')
+puts end_date.strftime('%B %d, %Y') 
+
+
+
 
