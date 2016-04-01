@@ -36,7 +36,3 @@ start_date, end_date = query_user_date_range
 
 puts start_date.strftime('%B %d, %Y')
 puts end_date.strftime('%B %d, %Y') 
-
-
-
-
