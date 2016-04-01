@@ -37,9 +37,14 @@ def query_user_for_date
 		# Defensive test prompt for other options than a date
 		exit if ['quit', 'exit', 'q', 'x'].include?(response)
 		
+		# Defensive test block to check a format for date object
+		begin
+			date = Date.parse(response)
+		rescue ArguementError
+			puts "\n Invalid date format"
+		end
+		
 	end
-	
-	
-	return nil
-
+		
+	return date
 end
