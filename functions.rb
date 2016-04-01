@@ -24,7 +24,22 @@ end
 
 
 def query_user_for_date
-
+	
+	# Create a variable date object
+	date = nil
+	
+	# Keep looping until a date variable is an actual date object
+	until date.is_a? Date
+		
+		prompt = "Please insert a date as YYYY-MM-DD:"
+		response = Readline.readline(prompt, true # get an input
+		
+		# Defensive test prompt for other options than a date
+		exit if ['quit', 'exit', 'q', 'x'].include?(response)
+		
+	end
+	
+	
 	return nil
 
 end
