@@ -19,8 +19,6 @@
 #  
 #
 
-  
-
 #!/usr/bin/env ruby
 
 require_relative('functions')
@@ -36,4 +34,4 @@ start_date, end_date = query_user_date_range
 
 puts "\n"
 puts start_date.strftime('%B %d, %Y')
-puts end_date.strftime('%B %d, %Y') 
+puts end_date.strftime('%B %d, %Y')
