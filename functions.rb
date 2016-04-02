@@ -7,6 +7,13 @@
 require 'readline' # Readline is a library that allows us to interact with the user to get user input.
 require 'date' # 
 
+
+# Declare a constant global variable, the earliest date
+DATA_START_DATE = 2006-09-20
+
+# Declare the maximum number of days that can be retrieved (Remote server)
+MAX_DAY = 7
+
 def query_user_date_range
 	
 	start_date = nil
@@ -39,7 +46,7 @@ def query_user_for_date
 		
 		# Defensive test block to check a format for date object
 		begin
-			date = Date.parse(response)
+			date = Date.parse(response) # parse => format in YYYY-MM-DD 
 		rescue ArgumentError
 			puts "\nInvalid date format"
 		end
@@ -47,4 +54,20 @@ def query_user_for_date
 	end
 		
 	return date
+end
+
+
+# Method: Test if the single date is valid
+def date_valid?(date)
+	
+	# variable valid date only within range of earliest date until today's date
+	# data that is retrieved must be after start date and before today
+	valid_date = Date.parse(DATA_START_DATE)..Date.today
+	
+	# Check if the passed argument, date is within the valid date
+	if valid_date.cover?(date)
+	 return true
+	else
+	 puts "\n Date must be after #{DATA_START_DATE} and before today, #{Date.today}"
+	 return false
 end
