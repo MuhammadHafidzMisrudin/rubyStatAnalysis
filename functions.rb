@@ -51,6 +51,10 @@ def query_user_for_date
 			puts "\nInvalid date format"
 		end
 		
+		# set the date is nothing (nil) unless the date is valid
+		# defensive test to check a valid date
+		date = nil unless date_valid?(date)
+		
 	end
 		
 	return date
@@ -68,6 +72,22 @@ def date_valid?(date)
 	if valid_date.cover?(date)
 	 return true
 	else
-	 puts "\n Date must be after #{DATA_START_DATE} and before today, #{Date.today}"
+	 puts "\nDate must be after #{DATA_START_DATE} and before today, #{Date.today}"
 	 return false
+	end
+end
+
+
+# Method: Test if a range of dates is valid
+def date_range_valid?(start_date, end_date)
+	if start_date > end_date
+	 puts "\nStart date must be before End date"
+	 return false
+	elsif start_date + MAX_DAY < end_date
+	 # to check if end date is too far in future to retrieve data
+	 puts "\nNo more than #{MAX_DAY} days. Be kind to remote server"
+	 return false
+	end
+	
+	return true
 end
