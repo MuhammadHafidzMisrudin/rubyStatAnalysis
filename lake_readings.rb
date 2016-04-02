@@ -18,20 +18,19 @@
 #  MA 02110-1301, USA.
 #  
 #
-
 #!/usr/bin/env ruby
 
 require_relative('functions')
 
-puts "\n*** LAKE PEND OREILLE READINGS ***"
+puts "\n*** LAKE PEND OREILLE READINGS *** "
+puts "Calculates the mean and median of the wind speed, air temperature,"
+puts "and barometric pressure recorded at the Deep Moor station"
+puts "on Lake Pend Oreille for a given range of dates."
 
 # Intialise variables for dates, Start Date and End Date
 # Call a function called Query Date Range for user prompt
-
 start_date, end_date = query_user_date_range
 
 # Output date formats for Start Date and End Date
-
-puts "\n"
 puts start_date.strftime('%B %d, %Y')
 puts end_date.strftime('%B %d, %Y')

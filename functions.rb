@@ -5,25 +5,38 @@
 #  
 
 require 'readline' # Readline is a library that allows us to interact with the user to get user input.
-require 'date' # 
+require 'date'
 
 
 # Declare a constant global variable, the earliest date
-DATA_START_DATE = 2006-09-20
+DATA_START_DATE = '2006-09-20'
 
 # Declare the maximum number of days that can be retrieved (Remote server)
-MAX_DAY = 7
+MAX_DAYS = 7
 
 def query_user_date_range
 	
 	start_date = nil
 	end_date = nil
 	
-	puts "\nFirst, Start Date"
-	start_date = query_user_for_date
+	# Defensive test loop, keep it loop until there are valid start date and end date
+	until start_date && end_date
 	
-	puts "\nNext, End Date"
-	end_date = query_user_for_date
+		puts "\nFirst, Start Date"
+		start_date = query_user_for_date
+	
+		puts "\nNext, End Date"
+		end_date = query_user_for_date
+		
+		# Defensive test, if date range is not valid, output error
+		# set dates to nothing (nil)
+		if !date_range_valid?(start_date, end_date)
+		 puts "Not valid range! Try again."
+		 start_date = end_date = nil
+		end # close if
+	
+	end # close until
+
 	
 	# return two values of array
 	return start_date, end_date
@@ -37,7 +50,7 @@ def query_user_for_date
 	
 	# Keep looping until a date variable is an actual date object
 	until date.is_a? Date
-		
+	
 		prompt = "Please insert a date as YYYY-MM-DD:"
 		response = Readline.readline(prompt, true) # get an input
 		
@@ -49,19 +62,20 @@ def query_user_for_date
 			date = Date.parse(response) # parse => format in YYYY-MM-DD 
 		rescue ArgumentError
 			puts "\nInvalid date format"
-		end
+		end # close begin rescue
 		
 		# set the date is nothing (nil) unless the date is valid
 		# defensive test to check a valid date
-		date = nil unless date_valid?(date)
+		date = nil unless date_valid?(date) # similar => if !date_valid(date)
 		
-	end
+	end # close until
 		
 	return date
 end
 
 
 # Method: Test if the single date is valid
+# Return true if variable date is valid within the range, false otherwise
 def date_valid?(date)
 	
 	# variable valid date only within range of earliest date until today's date
@@ -74,20 +88,21 @@ def date_valid?(date)
 	else
 	 puts "\nDate must be after #{DATA_START_DATE} and before today, #{Date.today}"
 	 return false
-	end
+	end # close if else
 end
 
 
 # Method: Test if a range of dates is valid
+# Always return true for valid, otherwise return false
 def date_range_valid?(start_date, end_date)
 	if start_date > end_date
 	 puts "\nStart date must be before End date"
 	 return false
-	elsif start_date + MAX_DAY < end_date
+	elsif start_date + MAX_DAYS < end_date
 	 # to check if end date is too far in future to retrieve data
-	 puts "\nNo more than #{MAX_DAY} days. Be kind to remote server"
+	 puts "\nNo more than #{MAX_DAYS} days. Be kind to remote server"
 	 return false
-	end
+	end # close if else
 	
 	return true
 end
