@@ -6,6 +6,7 @@
 
 require 'readline' # Readline is a library that allows us to interact with the user to get user input.
 require 'date'
+require 'open-uri'
 
 
 # Declare a constant global variable, the earliest date
@@ -13,6 +14,14 @@ DATA_START_DATE = '2006-09-20'
 
 # Declare the maximum number of days that can be retrieved (Remote server)
 MAX_DAYS = 7
+
+# Reading Type variable as a hash (key, value)
+# Each key is used to locate data
+# Each value is the plain text label for data
+READING_TYPES =  {"Wind_Speed" => "Wind Speed", "Air_Temp" => "Air Temp", "Barometric_Press" => " Pressure"}
+
+
+### User Input Section ###
 
 def query_user_date_range
 	
@@ -66,7 +75,7 @@ def query_user_for_date
 		
 		# set the date is nothing (nil) unless the date is valid
 		# defensive test to check a valid date
-		date = nil unless date_valid?(date) # similar => if !date_valid(date)
+		date = nil unless date_valid?(date) # similar to => if !date_valid(date)
 		
 	end # close until
 		
@@ -106,3 +115,21 @@ def date_range_valid?(start_date, end_date)
 	
 	return true
 end
+
+### User Input Section End ###
+
+
+### Retrieve Remote Data Section ###
+
+def get_readings_from_remote_for_dates(type, start_date, end_date)
+
+	readings = []
+	
+	start_date.upto(end_date) do |date|
+		readings += get_readings_from_remote(type, date)
+	end # close iterator upto
+	return readings
+
+end
+
+### Retrieve Remote Data Section ###

@@ -32,5 +32,5 @@ puts "on Lake Pend Oreille for a given range of dates."
 start_date, end_date = query_user_date_range
 
 # Output date formats for Start Date and End Date
-puts start_date.strftime('%B %d, %Y')
-puts end_date.strftime('%B %d, %Y')
+#puts start_date.strftime('%B %d, %Y')
+#puts end_date.strftime('%B %d, %Y')
