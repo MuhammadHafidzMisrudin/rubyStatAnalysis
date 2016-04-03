@@ -125,11 +125,34 @@ def get_readings_from_remote_for_dates(type, start_date, end_date)
 
 	readings = []
 	
+	# Loop using iterator from start date to end date
+	# Add values (data) into an array according to its types
 	start_date.upto(end_date) do |date|
 		readings += get_readings_from_remote(type, date)
 	end # close iterator upto
 	return readings
 
+end
+
+
+def get_readings_from_remote(type, date)
+	
+	# Defensive test, to check the type is in valid
+	raise "Invalid Reading Type" unless READING_TYPES.keys.include?(type)
+	
+	base_url = "http://lpo.dt.navy.mil/data/DM"
+	url = "#{base_url}/#{date.year}/#{date.strftime("%Y_%m_%d")}/#{type}/"
+	
+	puts "Retrieving: #{url}" # Debug
+	data = open(url).readlines
+
+	# Extract the reading from each line
+	# 2014-01-01 00:02:57 7.6\r\n" reading => 7.6 => line_items[2]
+	readings = data.map do |line|
+		line_items = line.chomp.split(" ")
+		reading = line_items[2].to_f		
+	end
+	return readings	
 end
 
 ### Retrieve Remote Data Section ###

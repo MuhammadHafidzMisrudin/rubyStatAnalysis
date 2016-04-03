@@ -34,3 +34,9 @@ start_date, end_date = query_user_date_range
 # Output date formats for Start Date and End Date
 #puts start_date.strftime('%B %d, %Y')
 #puts end_date.strftime('%B %d, %Y')
+
+READING_TYPES.each do |type, label|
+	readings = get_readings_from_remote_for_dates(type, start_date, end_date)
+
+	puts "#{label}: " + readings.join(", ")
+end
